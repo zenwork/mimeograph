@@ -1,2 +1,2 @@
 # mimeograph
-micro headless cms
+headless micro cms
