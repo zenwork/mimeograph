@@ -3,24 +3,23 @@ package zenwork.mimeograph
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
 import io.vertx.ext.web.Router
-import java.io.IOException
 
 /**
  * Server
  * */
-object Mimeograph : AbstractVerticle() {
+class Mimeograph : AbstractVerticle() {
 
-    @JvmStatic
-    @Throws(IOException::class)
-    fun main(args: Array<String>) {
+    override fun start() {
+        vertx
+                .createHttpServer()
+                .requestHandler { buildRouter(Vertx.vertx())?.accept(it) }
+                .listen(9090)
+    }
 
-        // setup verx
-        val vertx = Vertx.vertx()
+    private fun buildRouter(vertx: Vertx?): Router? {
         val router = Router.router(vertx)
 
         router.get("/").handler { it.response().end(" Hello World :-) ") }
-
-        // start vertx
-        vertx.createHttpServer().requestHandler { router.accept(it) }.listen(9090)
+        return router
     }
 }
