@@ -1,2 +1,2 @@
-# mimeograph
+# zenwork.mimeograph
 headless micro cms
