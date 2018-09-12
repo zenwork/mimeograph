@@ -90,3 +90,4 @@ fabric.properties
 
 #vertx files
 .vertx/
+src/main/resources/.vertx/
