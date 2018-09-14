@@ -34,9 +34,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5+" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit:junit-bom:5.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-lang-kotlin-coroutines:3.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.19.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21.2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.41" level="project" />
@@ -48,7 +50,7 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-unit:3.5.2" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-resolver-dns:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.20" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec-dns:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec:4.1.19.Final" level="project" />
@@ -60,8 +62,6 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.5" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.41" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-web:3.5.2" level="project" />
-    <orderEntry type="library" name="Gradle: io.vertx:vertx-lang-kotlin-coroutines:3.5.2" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.19.Final" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="zenwork.mimeograph_main" />

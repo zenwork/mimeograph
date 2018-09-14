@@ -1,3 +1,12 @@
+
+
+repositories {
+    maven {
+        url "https://artifactory.sits.avaloq.net/artifactory/repo1-cache"
+    }
+}
+
+
 buildscript {
     ext.kotlin_version = '1.2.41'
     ext.vertx_version = '3.5.2'
@@ -25,8 +34,10 @@ repositories {
 dependencies {
 //    kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
-    testCompile "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+//    testCompile(group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0')
+//    testCompile(group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0')
+      testCompile(group: 'org.junit', name: 'junit-bom', version: '5.3.1' )
+
 
 //    vertx
     compile "io.vertx:vertx-web:$vertx_version"
