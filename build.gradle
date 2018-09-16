@@ -43,6 +43,9 @@ dependencies {
     compile "io.vertx:vertx-lang-kotlin-coroutines:$vertx_version"
     testCompile "io.vertx:vertx-unit:$vertx_version"
 
+    // markdown
+    compile 'com.vladsch.flexmark:flexmark-all:0.34.28'
+
 }
 
 compileKotlin {

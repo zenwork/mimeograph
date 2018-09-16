@@ -38,7 +38,27 @@ internal class FragmentFactoryTest {
         @JvmStatic
         fun testContent(): Stream<Arguments>? {
             return Stream.of(
-                    Arguments.of("""#The Title""", "the-title", MD)
+                    Arguments.of("""#The Title""", "the-title", MD),
+                    Arguments.of("""#A Title: with a colon""", "a-title:-with-a-colon", MD),
+                    Arguments.of("""#Some (Explosive) Title!""", "some-(explosive)-title!", MD),
+                    Arguments.of("""#A Title?""", "a-title", MD),
+                    Arguments.of("""#A Title&={}""", "a-title", MD),
+                    Arguments.of("""#A Title & Something """, "a-title-and-something", MD),
+                    Arguments.of("""
+
+#A Title & Something Else
+
+some content""", "a-title-and-something-else", MD),
+                    Arguments.of("""
+##Note: some warning before the title
+#A Title & Something Else 2
+
+some content""", "a-title-and-something-else-2", MD),
+                    Arguments.of("""#Multiline
+some content""", "multiline", MD),
+                    Arguments.of("""#Multi-title
+some content
+#some other title""", "multi-title", MD)
             )
 
         }
