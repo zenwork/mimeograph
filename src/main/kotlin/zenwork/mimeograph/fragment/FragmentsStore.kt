@@ -1,6 +1,6 @@
-package zenwork.mimeograph
+package zenwork.mimeograph.fragment
 
-import zenwork.mimeograph.Fragment.Key
+import zenwork.mimeograph.fragment.Fragment.Key
 
 /**
  *

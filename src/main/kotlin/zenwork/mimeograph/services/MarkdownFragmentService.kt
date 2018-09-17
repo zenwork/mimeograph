@@ -1,8 +1,8 @@
 package zenwork.mimeograph.services
 
-import zenwork.mimeograph.Fragment.Type.MD
-import zenwork.mimeograph.FragmentFactory
-import zenwork.mimeograph.FragmentsStore
+import zenwork.mimeograph.fragment.Fragment.Type.MD
+import zenwork.mimeograph.fragment.FragmentFactory
+import zenwork.mimeograph.fragment.FragmentsStore
 import java.io.File
 
 class MarkdownFragmentService() {

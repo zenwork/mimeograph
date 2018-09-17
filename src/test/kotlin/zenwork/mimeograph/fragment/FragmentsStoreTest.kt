@@ -1,11 +1,11 @@
-package zenwork.mimeograph
+package zenwork.mimeograph.fragment
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import zenwork.mimeograph.Fragment.Type
-import zenwork.mimeograph.Fragment.Type.MD
+import zenwork.mimeograph.fragment.Fragment.Type
+import zenwork.mimeograph.fragment.Fragment.Type.MD
 
 
 /**
