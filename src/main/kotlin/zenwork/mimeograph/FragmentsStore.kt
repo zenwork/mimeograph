@@ -1,5 +1,7 @@
 package zenwork.mimeograph
 
+import zenwork.mimeograph.Fragment.Key
+
 /**
  *
  */
@@ -12,7 +14,20 @@ class FragmentsStore {
     }
 
     fun add(fragment: Fragment) {
+        println("added ${fragment.key}")
+        if(fragments[fragment.key]==null){
         fragments[fragment.key] = fragment
+        } else {
+            throw IllegalArgumentException("a fragment with ${fragment.key} already exists.")
+        }
+    }
+
+    fun getSize(): Int {
+        return fragments.size
+    }
+
+    fun getAllKeys(): List<Key> {
+        return fragments.keys.toList()
     }
 }
 

@@ -1,11 +1,5 @@
 
 
-repositories {
-    maven {
-        url "https://artifactory.sits.avaloq.net/artifactory/repo1-cache"
-    }
-}
-
 
 buildscript {
     ext.kotlin_version = '1.2.41'

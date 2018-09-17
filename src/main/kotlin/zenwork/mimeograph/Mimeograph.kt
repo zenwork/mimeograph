@@ -5,6 +5,7 @@ import io.vertx.core.Vertx
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.StaticHandler
+import zenwork.mimeograph.services.MarkdownFragmentService
 
 /**
  * Server
@@ -12,14 +13,15 @@ import io.vertx.ext.web.handler.StaticHandler
 class Mimeograph : AbstractVerticle() {
 
     override fun start() {
-        val router = buildRouter(vertx)
+        val markdownService = MarkdownFragmentService("${System.getProperty("user.dir")}/webroot/md")
+        val router = buildRouter(vertx,markdownService)
         vertx
                 .createHttpServer()
                 .requestHandler { router.accept(it) }
                 .listen(9090)
     }
 
-    private fun buildRouter(vertx: Vertx): Router {
+    private fun buildRouter(vertx: Vertx, markdownService: MarkdownFragmentService): Router {
         val router = Router.router(vertx)
 
         router
@@ -32,7 +34,7 @@ class Mimeograph : AbstractVerticle() {
 
         router
                 .get("/md/titles")
-                .handler { ctx:RoutingContext -> ctx.response().end("raw md content") }
+                .handler { ctx:RoutingContext ->  ctx.response().end(markdownService.titles())}
 
 
         router

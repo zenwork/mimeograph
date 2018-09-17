@@ -7,17 +7,19 @@ import zenwork.mimeograph.Fragment.Type
  * @author: florian
  * @since: 16/09/18
  * */
-class FragmentFactory {
+object FragmentFactory {
     fun create(content: String, type: Type): Fragment {
-        return Fragment(Key(type, extractFrom(content)), content)
+        val title = findTitle(content)
+        val key = Key(type, replaceUnsafeCharacters(title))
+        return Fragment(key, title, content)
     }
 
-    private fun extractFrom(content: String): String {
+    fun findTitle(content: String): String {
         val extractedTitle = Regex("(?<=(^|\\r|\\n|\\r\\n))[#][^#].*").find(content)?.value.toString()
-        return replaceUnsafeCharacters(extractedTitle)
+        return extractedTitle
     }
 
-    fun replaceUnsafeCharacters(extractedTitle: String): String {
+    private fun replaceUnsafeCharacters(extractedTitle: String): String {
 
         return extractedTitle
                 .toLowerCase()

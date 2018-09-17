@@ -27,7 +27,7 @@ internal class FragmentFactoryTest {
     @ParameterizedTest
     @MethodSource("testContent")
     fun create(content: String, title: String, type: Type) {
-        val fragment = FragmentFactory().create(content, type)
+        val fragment = FragmentFactory.create(content, type)
 
         assertEquals(type, fragment.key.type)
         assertEquals(title, fragment.key.id)
