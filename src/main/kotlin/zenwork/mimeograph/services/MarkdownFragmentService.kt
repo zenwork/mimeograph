@@ -31,11 +31,11 @@ class MarkdownFragmentService() {
     }
 
     fun titles(): String {
-        var titles = "["
+        var titles = "{"
         store.getAllKeys().forEach { titles = "$titles${addComma(titles)}\"${it.id}\":\"${store.get(it)?.title}\"" }
-        titles = "$titles]"
+        titles = "$titles}"
         return titles
     }
 
-    private fun addComma(titles: String) = if (titles == "[") "" else ","
+    private fun addComma(titles: String) = if (titles == "{") "" else ","
 }
