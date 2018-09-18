@@ -4,6 +4,9 @@ import zenwork.mimeograph.fragment.Fragment
 import zenwork.mimeograph.fragment.FragmentFactory
 import java.io.File
 
+/**
+ * File System sourcing implementation
+ */
 class FileSystemMarkdownSource(val path:String) : MarkdownSource {
 
     override fun fetch(): Set<Fragment> {

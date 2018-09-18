@@ -1,5 +1,6 @@
 package zenwork.mimeograph.services
 
+import io.vertx.core.json.JsonObject
 import zenwork.mimeograph.fragment.FragmentsStore
 import zenwork.mimeograph.source.MarkdownSource
 
@@ -14,11 +15,14 @@ class MarkdownFragmentService() {
     }
 
     fun titles(): String {
-        var titles = "{"
-        store.getAllKeys().forEach { titles = "$titles${addComma(titles)}\"${it.id}\":\"${store.get(it)?.title}\"" }
-        titles = "$titles}"
-        return titles
+        val titles = JsonObject()
+
+        store.getAllKeys().forEach {
+            titles.put(it.id, store.get(it)?.title)
+
+        }
+
+        return titles.toString()
     }
 
-    private fun addComma(titles: String) = if (titles == "{") "" else ","
 }

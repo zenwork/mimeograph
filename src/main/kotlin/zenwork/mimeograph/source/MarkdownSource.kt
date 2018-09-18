@@ -3,9 +3,8 @@ package zenwork.mimeograph.source
 import zenwork.mimeograph.fragment.Fragment
 
 /**
- * @author: florian
- * @since: 18/09/18
- * */
+ * Fragment sourcing strategy interface
+ */
 interface MarkdownSource {
 
     fun fetch(): Set<Fragment>
