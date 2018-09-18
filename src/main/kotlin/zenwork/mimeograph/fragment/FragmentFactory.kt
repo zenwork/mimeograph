@@ -1,24 +1,32 @@
 package zenwork.mimeograph.fragment
 
 import zenwork.mimeograph.fragment.Fragment.Key
-import zenwork.mimeograph.fragment.Fragment.Type
+import zenwork.mimeograph.fragment.Fragment.Type.MD
 
 /**
- * @author: florian
- * @since: 16/09/18
- * */
+ * Convert content to Fragment instance
+ */
 object FragmentFactory {
-    fun create(content: String, type: Type): Fragment {
-        val title = findTitle(content)
-        val key = Key(type, replaceUnsafeCharacters(title))
+
+    /**
+     * Create Markdown Fragment
+     */
+    fun createMarkdown(content: String): Fragment {
+        val title = findMarkdownTitle(content)
+        val key = Key(MD, replaceUnsafeCharacters(title))
         return Fragment(key, title, content)
     }
 
-    fun findTitle(content: String): String {
-        val extractedTitle = Regex("(?<=(^|\\r|\\n|\\r\\n))[#][^#].*").find(content)?.value.toString()
-        return extractedTitle
+    /**
+     * find first Markdown title(h1) starting with '#' notation
+     */
+    private fun findMarkdownTitle(content: String): String {
+        return Regex("(?<=(^|\\r|\\n|\\r\\n))[#][^#].*").find(content)?.value.toString()
     }
 
+    /**
+     * create safe string which makes unique ID and safe URL slug
+     */
     private fun replaceUnsafeCharacters(extractedTitle: String): String {
 
         return extractedTitle

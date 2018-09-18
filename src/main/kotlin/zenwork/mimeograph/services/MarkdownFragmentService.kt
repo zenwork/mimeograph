@@ -1,33 +1,16 @@
 package zenwork.mimeograph.services
 
-import zenwork.mimeograph.fragment.Fragment.Type.MD
-import zenwork.mimeograph.fragment.FragmentFactory
 import zenwork.mimeograph.fragment.FragmentsStore
-import java.io.File
+import zenwork.mimeograph.source.MarkdownSource
 
+/**
+ * Markdown Fragment Service
+ */
 class MarkdownFragmentService() {
-    private lateinit var store: FragmentsStore
+    private var store: FragmentsStore = FragmentsStore()
 
-    constructor(store: FragmentsStore) : this() {
-        this.store = store
-    }
-
-    constructor(path: String) : this() {
-        store = FragmentsStore()
-        val path = File(path)
-        if (path.exists()) {
-
-            path.walk().forEach { file ->
-                if (file.isFile) {
-                    println("found MD file: $file")
-
-                    val content: String = file.inputStream().bufferedReader().use { it.readText() }
-                    store.add(FragmentFactory.create(content, MD))
-                }
-            }
-        } else {
-            println("Path to MD files not found: $path")
-        }
+    constructor(source: MarkdownSource) : this() {
+        source.fetch().forEach { store.add(it) }
     }
 
     fun titles(): String {

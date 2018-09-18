@@ -3,9 +3,9 @@ package zenwork.mimeograph.services
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import zenwork.mimeograph.fragment.Fragment.Type.MD
+import zenwork.mimeograph.fragment.Fragment
 import zenwork.mimeograph.fragment.FragmentFactory
-import zenwork.mimeograph.fragment.FragmentsStore
+import zenwork.mimeograph.source.MarkdownSource
 
 /**
  * @author: florian
@@ -17,16 +17,22 @@ internal class MarkdownFragmentServiceTest {
 
     @BeforeEach
     fun setUp() {
-        val store = FragmentsStore()
-        store.add(FragmentFactory.create("#Test", MD))
-        store.add(FragmentFactory.create("#Test2", MD))
-        store.add(FragmentFactory.create("#Test3", MD))
-        service = MarkdownFragmentService(store)
+        val source = object : MarkdownSource {
+            override fun fetch(): Set<Fragment> {
+                val set = mutableSetOf<Fragment>()
+                set.add(FragmentFactory.createMarkdown("#Test"))
+                set.add(FragmentFactory.createMarkdown("#Test2"))
+                set.add(FragmentFactory.createMarkdown("#Test3"))
+                return set
+            }
+        }
+
+        service = MarkdownFragmentService(source)
     }
 
     @Test
     fun titles() {
         //language=JSON
-        assertEquals("""{"test":"#Test","test2":"#Test2","test3":"#Test3"}""",service.titles())
+        assertEquals("""{"test":"#Test","test2":"#Test2","test3":"#Test3"}""", service.titles())
     }
 }

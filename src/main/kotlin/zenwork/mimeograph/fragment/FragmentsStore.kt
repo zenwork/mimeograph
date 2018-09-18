@@ -3,7 +3,7 @@ package zenwork.mimeograph.fragment
 import zenwork.mimeograph.fragment.Fragment.Key
 
 /**
- *
+ *  Fragment Store in memory implementation
  */
 class FragmentsStore {
 

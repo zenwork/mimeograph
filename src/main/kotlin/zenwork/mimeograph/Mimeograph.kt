@@ -6,6 +6,7 @@ import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.StaticHandler
 import zenwork.mimeograph.services.MarkdownFragmentService
+import zenwork.mimeograph.source.FileSystemMarkdownSource
 
 /**
  * Server
@@ -13,7 +14,8 @@ import zenwork.mimeograph.services.MarkdownFragmentService
 class Mimeograph : AbstractVerticle() {
 
     override fun start() {
-        val markdownService = MarkdownFragmentService("${System.getProperty("user.dir")}/webroot/md")
+        val source = FileSystemMarkdownSource("${System.getProperty("user.dir")}/webroot/md")
+        val markdownService = MarkdownFragmentService(source)
         val router = buildRouter(vertx,markdownService)
         vertx
                 .createHttpServer()
