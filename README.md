@@ -2,7 +2,12 @@
 headless micro cms
 
 ## TODO
-* standardize logging
+* serve markdown web component
+* serve main page
 * introduce HTTPS
+* serve archive page
+* support cross blog linking
+* serve media
+* standardize logging
 
 
