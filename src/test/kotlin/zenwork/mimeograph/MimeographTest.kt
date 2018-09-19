@@ -1,6 +1,7 @@
 package io.vertx.blog.first
 
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpClient
 import io.vertx.ext.unit.TestContext
 import io.vertx.ext.unit.junit.VertxUnitRunner
 import org.junit.After
@@ -13,12 +14,14 @@ import zenwork.mimeograph.Mimeograph
 class MimeographTest {
 
     private var vertx: Vertx? = null
+    private var client: HttpClient? = null
 
     @Before
     fun setUp(context: TestContext) {
         vertx = Vertx.vertx()
         vertx!!.deployVerticle(Mimeograph::class.java.name,
                 context.asyncAssertSuccess())
+        client = vertx!!.createHttpClient()
     }
 
     @After
@@ -27,13 +30,23 @@ class MimeographTest {
     }
 
     @Test
-    fun testMyApplication(context: TestContext) {
-        val async = context.async()
+    fun testBasicStart(context: TestContext) {
+        call(context, "/", "mimeograph")
+    }
 
-        vertx!!.createHttpClient().getNow(9090, "localhost", "/"
-        ) { response ->
+    @Test
+    fun testMarkdownList(context: TestContext) {
+        call(context, "/md/titles", "{}")
+    }
+
+    private fun call(context: TestContext, request: String, contains: String) {
+        val async = context.async()
+        client?.getNow(9090, "localhost", request)
+        { response ->
             response.handler { body ->
-                context.assertTrue(body.toString().contains("mimeograph"))
+                val content = body.toString()
+                println(content)
+                context.assertTrue(content.contains(contains))
                 async.complete()
             }
         }
