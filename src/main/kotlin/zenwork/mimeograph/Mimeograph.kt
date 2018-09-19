@@ -14,13 +14,18 @@ import zenwork.mimeograph.source.FileSystemMarkdownSource
 class Mimeograph : AbstractVerticle() {
 
     override fun start() {
-        val source = FileSystemMarkdownSource("${System.getProperty("user.dir")}/webroot/md")
+
+        val path = config().getString("path.md", "${System.getProperty("user.dir")}/webroot/md")
+        val port = config().getInteger("http.port", 9090)
+
+        val source = FileSystemMarkdownSource(path)
         val markdownService = MarkdownFragmentService(source)
         val router = buildRouter(vertx,markdownService)
+
         vertx
                 .createHttpServer()
                 .requestHandler { router.accept(it) }
-                .listen(9090)
+                .listen(port)
     }
 
     private fun buildRouter(vertx: Vertx, markdownService: MarkdownFragmentService): Router {

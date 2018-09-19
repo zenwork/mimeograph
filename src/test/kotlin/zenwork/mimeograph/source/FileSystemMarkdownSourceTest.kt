@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import zenwork.mimeograph.fragment.Fragment.Type.MD
-import java.nio.file.Files
+import zenwork.mimeograph.source.Files.createTestMd
 import java.nio.file.Path
 
 /**
@@ -16,16 +16,7 @@ internal class FileSystemMarkdownSourceTest {
 
     @BeforeEach
     fun setUp() {
-        directory = Files.createTempDirectory("md-test")
-        directory.toFile().deleteOnExit()
-        val file = Files.createTempFile(directory, "test-md-file", ".md")
-        file.toFile().createNewFile()
-        file.toFile().deleteOnExit()
-
-        file.toFile().printWriter().use { out ->
-            out.println("#A Title")
-            out.println("some content")
-        }
+        directory = createTestMd("md-test")
     }
 
     @Test
@@ -41,4 +32,5 @@ internal class FileSystemMarkdownSourceTest {
             assertEquals("#A Title\nsome content\n", it.content)
         }
     }
+
 }

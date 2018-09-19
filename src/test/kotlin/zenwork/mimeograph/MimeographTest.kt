@@ -1,7 +1,9 @@
 package io.vertx.blog.first
 
+import io.vertx.core.DeploymentOptions
 import io.vertx.core.Vertx
 import io.vertx.core.http.HttpClient
+import io.vertx.core.json.JsonObject
 import io.vertx.ext.unit.TestContext
 import io.vertx.ext.unit.junit.VertxUnitRunner
 import org.junit.After
@@ -9,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import zenwork.mimeograph.Mimeograph
+import zenwork.mimeograph.source.Files
 
 @RunWith(VertxUnitRunner::class)
 class MimeographTest {
@@ -19,8 +22,14 @@ class MimeographTest {
     @Before
     fun setUp(context: TestContext) {
         vertx = Vertx.vertx()
-        vertx!!.deployVerticle(Mimeograph::class.java.name,
-                context.asyncAssertSuccess())
+        val path = Files.createTestMd("test-md")
+
+        val config = JsonObject()
+        config.put("http.port",9999)
+        config.put("path.md",path.toString())
+        val options = DeploymentOptions().setConfig(config)
+
+        vertx!!.deployVerticle(Mimeograph::class.java.name, options, context.asyncAssertSuccess())
         client = vertx!!.createHttpClient()
     }
 
@@ -36,12 +45,12 @@ class MimeographTest {
 
     @Test
     fun testMarkdownList(context: TestContext) {
-        call(context, "/md/titles", "{}")
+        call(context, "/md/titles", "{\"a-title\":\"#A Title\"}")
     }
 
     private fun call(context: TestContext, request: String, contains: String) {
         val async = context.async()
-        client?.getNow(9090, "localhost", request)
+        client?.getNow(9999, "localhost", request)
         { response ->
             response.handler { body ->
                 val content = body.toString()
