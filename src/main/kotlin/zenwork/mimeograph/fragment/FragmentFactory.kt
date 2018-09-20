@@ -39,6 +39,8 @@ object FragmentFactory {
                 //simplify
                 .replace(Regex("[-]+"), "-")
                 //remove trailing -
-                .replace(Regex("-$"), "")
+                .replace(Regex("-+$"), "")
+                .replace(Regex("^-+"), "")
+
     }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.Arguments.of
 import org.junit.jupiter.params.provider.MethodSource
 import zenwork.mimeograph.fragment.Fragment.Type
 import zenwork.mimeograph.fragment.Fragment.Type.MD
@@ -38,25 +39,26 @@ internal class FragmentFactoryTest {
         @JvmStatic
         fun testContent(): Stream<Arguments>? {
             return Stream.of(
-                    Arguments.of("""#The Title""", "the-title", MD),
-                    Arguments.of("""#A Title: with a colon""", "a-title:-with-a-colon", MD),
-                    Arguments.of("""#Some (Explosive) Title!""", "some-(explosive)-title!", MD),
-                    Arguments.of("""#A Title?""", "a-title", MD),
-                    Arguments.of("""#A Title&={}""", "a-title", MD),
-                    Arguments.of("""#A Title & Something """, "a-title-and-something", MD),
-                    Arguments.of("""
+                    of("""#The Title""", "the-title", MD),
+                    of("""#A Title: with a colon""", "a-title:-with-a-colon", MD),
+                    of("""#Some (Explosive) Title!""", "some-(explosive)-title!", MD),
+                    of("""#A Title?""", "a-title", MD),
+                    of("""#A Title&={}""", "a-title", MD),
+                    of("""#  A Title With Padding  """, "a-title-with-padding", MD),
+                    of("""#A Title & Something """, "a-title-and-something", MD),
+                    of("""
 
 #A Title & Something Else
 
 some content""", "a-title-and-something-else", MD),
-                    Arguments.of("""
+                    of("""
 ##Note: some warning before the title
 #A Title & Something Else 2
 
 some content""", "a-title-and-something-else-2", MD),
-                    Arguments.of("""#Multiline
+                    of("""#Multiline
 some content""", "multiline", MD),
-                    Arguments.of("""#Multi-title
+                    of("""#Multi-title
 some content
 #some other title""", "multi-title", MD)
             )

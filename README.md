@@ -12,5 +12,6 @@ headless micro cms
 * serve media
 * standardize logging
 * serve search web component
+* add meta-data notation to MD files (publish date, creation date, etc)
 
 

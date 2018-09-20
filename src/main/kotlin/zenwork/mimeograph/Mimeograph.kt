@@ -21,11 +21,10 @@ class Mimeograph : AbstractVerticle() {
 
         val source = FileSystemMarkdownSource(path)
         val markdownService = MarkdownFragmentService(source)
-        val router = buildRouter(vertx,markdownService)
+        val router = buildRouter(vertx, markdownService)
 
-        vertx
-                .createHttpServer()
-                .requestHandler { router.accept(it) }
+        vertx.createHttpServer()
+                .requestHandler(router::accept)
                 .listen(port)
     }
 
@@ -38,7 +37,7 @@ class Mimeograph : AbstractVerticle() {
 
         router
                 .get("/stencils")
-                .handler { ctx:RoutingContext -> ctx.response().end("page templates") }
+                .handler { ctx: RoutingContext -> ctx.response().end("page templates") }
 
         router
                 .get("/md/titles")
