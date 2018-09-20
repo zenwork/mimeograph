@@ -2,6 +2,7 @@ package zenwork.mimeograph
 
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpMethod.GET
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.StaticHandler
@@ -41,11 +42,17 @@ class Mimeograph : AbstractVerticle() {
 
         router
                 .get("/md/titles")
-                .handler { ctx:RoutingContext ->  ctx.response().end(markdownService.titles())}
+                .handler { ctx: RoutingContext -> ctx.response().end(markdownService.getTitles()) }
 
 
         router
-                .get("/md/title/*").handler(StaticHandler.create("webroot/md"))
+                .route(GET, "/md/title/:title")
+                .handler { ctx: RoutingContext ->
+                    val response = ctx.response()
+                    response.putHeader("content-type", "text/plain")
+                    response.end(markdownService.getTitle(ctx.request().getParam("title")))
+                }
+
 
         router
                 .get("/static/*").handler(StaticHandler.create("webroot/static"))

@@ -1,6 +1,8 @@
 package zenwork.mimeograph.services
 
 import io.vertx.core.json.JsonObject
+import zenwork.mimeograph.fragment.Fragment
+import zenwork.mimeograph.fragment.Fragment.Type.MD
 import zenwork.mimeograph.fragment.FragmentsStore
 import zenwork.mimeograph.source.MarkdownSource
 
@@ -14,7 +16,7 @@ class MarkdownFragmentService() {
         source.fetch().forEach { store.add(it) }
     }
 
-    fun titles(): String {
+    fun getTitles(): String {
         val titles = JsonObject()
 
         store.getAllKeys().forEach {
@@ -23,6 +25,11 @@ class MarkdownFragmentService() {
         }
 
         return titles.toString()
+    }
+
+    fun getTitle(title: String): String? {
+        val fragment = store.get(Fragment.Key(MD, title))
+        return fragment?.content
     }
 
 }

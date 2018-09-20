@@ -33,6 +33,11 @@ internal class MarkdownFragmentServiceTest {
     @Test
     fun titles() {
         //language=JSON
-        assertEquals("""{"test":"#Test","test2":"#Test2","test3":"#Test3"}""", service.titles())
+        assertEquals("""{"test":"#Test","test2":"#Test2","test3":"#Test3"}""", service.getTitles())
+    }
+
+    @Test
+    fun testGetTitle() {
+        assertEquals("#Test2", service.getTitle("test2"))
     }
 }

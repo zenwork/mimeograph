@@ -19,14 +19,16 @@ class MimeographTest {
     private var vertx: Vertx? = null
     private var client: HttpClient? = null
 
+    private val port = 9999
+
     @Before
     fun setUp(context: TestContext) {
         vertx = Vertx.vertx()
         val path = Files.createTestMd("test-md")
 
         val config = JsonObject()
-        config.put("http.port",9999)
-        config.put("path.md",path.toString())
+        config.put("http.port", port)
+        config.put("path.md", path.toString())
         val options = DeploymentOptions().setConfig(config)
 
         vertx!!.deployVerticle(Mimeograph::class.java.name, options, context.asyncAssertSuccess())
@@ -40,24 +42,34 @@ class MimeographTest {
 
     @Test
     fun testBasicStart(context: TestContext) {
-        call(context, "/", "mimeograph")
+        call(context, "/") { content -> "mimeograph" in content }
     }
 
     @Test
     fun testMarkdownList(context: TestContext) {
-        call(context, "/md/titles", "{\"a-title\":\"#A Title\"}")
+        call(context, "/md/titles") { content -> "{\"a-title\":\"#A Title\"}" in content }
     }
 
-    private fun call(context: TestContext, request: String, contains: String) {
+    @Test
+    fun testMarkdownTitle(context: TestContext) {
+        call(context, "/md/title/a-title") { content -> "#A Title\nsome content" in content }
+    }
+
+    private fun call(context: TestContext,
+                     request: String,
+                     test: (content: String) -> Boolean) {
         val async = context.async()
-        client?.getNow(9999, "localhost", request)
+        client?.getNow(port, "localhost", request)
         { response ->
             response.handler { body ->
                 val content = body.toString()
                 println(content)
-                context.assertTrue(content.contains(contains))
+                val result = test(content)
+                context.assertTrue(result)
                 async.complete()
             }
         }
     }
+
+
 }
