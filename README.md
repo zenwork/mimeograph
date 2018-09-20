@@ -2,12 +2,15 @@
 headless micro cms
 
 ## TODO
-* serve markdown web component
+* serve story web component
 * serve main page
 * introduce HTTPS
-* serve archive page
+* dockerize
+* create delivery pipeline
+* serve archive web component
 * support cross blog linking
 * serve media
 * standardize logging
+* serve search web component
 
 

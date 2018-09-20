@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="server" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="io.vertx.core.Launcher" />
+    <module name="zenwork.mimeograph_main" />
+    <option name="PROGRAM_PARAMETERS" value="run kotlin/mimeograph.kt" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
