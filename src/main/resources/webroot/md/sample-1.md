@@ -1,9 +1,9 @@
-#Sample Markdown Content
+# Sample Markdown Content
 
 This is sample content to test various Markdown formatting aspects
 
 
-##Lists
+## Lists
 * first item
 * second item
 * third item
@@ -12,7 +12,7 @@ This is sample content to test various Markdown formatting aspects
 1. item 2
 1. item 3
 
-##Links
+## Links
 
 [Google](http://duckduckgo.com)
 

@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Test Home</title>
+    <script src="/api/webcomponents-bundle.js"></script>
+    <script src="/api/md-story.js"></script>
 </head>
 <body>
-    <h1>Home Page</h1>
+    <h1>Test Page</h1>
+    <ol>
+        <li>
+            <button onclick="fire('test-markdown')">Test Markdown</button>
+        </li>
+        <li>
+            <button onclick="fire('sample-markdown-content')">Sample Markdown Content</button>
+        </li>
+        <li>
+            <button onclick="fire('tibi-petit-arcitenens-spectans-caeleste-ope-fluctus')">Tibi petit arcitenens spectans
+                                                                                          caeleste ope fluctus
+            </button>
+        </li>
+        <li>
+            <button onclick="fire('an-h1-header')">An h1 header</button>
+        </li>
+    </ol>
+
+
+    <md-story class="main-story"></md-story>
+
+    <script>
+		function fire(story) {
+			var request = new XMLHttpRequest();
+			request.open('GET', 'http://localhost:9090/md/title/' + story);
+			request.responseType = 'text';
+
+			request.onload = function () {
+				document.getElementsByClassName('main-story')[0].innerHTML = request.response;
+			};
+
+			request.send();
+		}
+    </script>
 </body>
 </html>

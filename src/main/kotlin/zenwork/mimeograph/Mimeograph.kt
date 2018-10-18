@@ -3,6 +3,7 @@ package zenwork.mimeograph
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
 import io.vertx.core.http.HttpMethod.GET
+import io.vertx.core.http.HttpServerOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.StaticHandler
@@ -23,7 +24,11 @@ class Mimeograph : AbstractVerticle() {
         val markdownService = MarkdownFragmentService(source)
         val router = buildRouter(vertx, markdownService)
 
-        vertx.createHttpServer()
+        val options = HttpServerOptions()
+        options.isCompressionSupported = true
+        options.compressionLevel = 9
+
+        vertx.createHttpServer(options)
                 .requestHandler(router::accept)
                 .listen(port)
     }
@@ -55,6 +60,9 @@ class Mimeograph : AbstractVerticle() {
 
         router
                 .get("/static/*").handler(StaticHandler.create("webroot/static"))
+
+        router
+                .get("/api/*").handler(StaticHandler.create("webroot/api"))
 
         return router
     }

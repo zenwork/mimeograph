@@ -18,7 +18,7 @@ Quick Markdown Example
 
 Markdown is probably the most commonly-used plain text markup used online, and is easy to get started with. The specific flavor of Markdown that Rippledoc uses is Pandoc-Markdown. Here’s a quick example of some pandoc-markdown -formatted text: first as the source you'd put into your file, then rendered as html.
 
-#An h1 header
+# An h1 header
 
 Paragraphs are separated by a blank line.
 
