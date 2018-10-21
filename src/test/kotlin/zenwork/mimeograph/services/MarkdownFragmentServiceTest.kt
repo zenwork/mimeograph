@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import zenwork.mimeograph.fragment.Fragment
 import zenwork.mimeograph.fragment.FragmentFactory
 import zenwork.mimeograph.source.MarkdownSource
+import java.io.File
 
 /**
  * @author: florian
@@ -20,9 +21,9 @@ internal class MarkdownFragmentServiceTest {
         val source = object : MarkdownSource {
             override fun fetch(): Set<Fragment> {
                 val set = mutableSetOf<Fragment>()
-                set.add(FragmentFactory.createMarkdown("#Test"))
-                set.add(FragmentFactory.createMarkdown("#Test2"))
-                set.add(FragmentFactory.createMarkdown("#Test3"))
+                set.add(FragmentFactory.createMarkdown("#Test", File("a")))
+                set.add(FragmentFactory.createMarkdown("#Test2", File("b")))
+                set.add(FragmentFactory.createMarkdown("#Test3", File("c")))
                 return set
             }
         }

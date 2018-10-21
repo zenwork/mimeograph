@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import zenwork.mimeograph.fragment.Fragment.Type
+import java.io.File
 
 
 /**
@@ -21,10 +22,13 @@ internal class FragmentsStoreTest {
 
     @Test
     fun testAdd() {
-        store.add(FragmentFactory.createMarkdown("#foo bar"))
-        val exception = assertThrows(IllegalArgumentException::class.java) { store.add(FragmentFactory.createMarkdown("#foo bar")) }
+        store.add(FragmentFactory.createMarkdown("#foo bar", File("")))
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            store.add(FragmentFactory.createMarkdown("#foo bar",
+                                                     File("")))
+        }
 
-        assertEquals("a fragment with Key(type=MD, id=foo-bar) already exists.",exception.message)
+        assertEquals("a fragment with Key(file=, type=MD, id=foo-bar) already exists.", exception.message)
         assertEquals(1, store.getSize())
     }
 
@@ -32,9 +36,9 @@ internal class FragmentsStoreTest {
     fun testGet() {
         store.add(FragmentFactory.createMarkdown("""#The Title of The Blog Entry
 
-The content of the blog"""))
+The content of the blog""", File("")))
 
-        val fragment = store.get(Fragment.Key(Type.MD, "the-title-of-the-blog-entry"))
+        val fragment = store.get(Fragment.Key(File(""), Type.MD, "the-title-of-the-blog-entry"))
         assertEquals("#The Title of The Blog Entry\n\nThe content of the blog", fragment?.content)
     }
 }

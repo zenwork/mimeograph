@@ -2,6 +2,7 @@ package zenwork.mimeograph.fragment
 
 import zenwork.mimeograph.fragment.Fragment.Key
 import zenwork.mimeograph.fragment.Fragment.Type.MD
+import java.io.File
 
 /**
  * Convert content to Fragment instance
@@ -11,9 +12,9 @@ object FragmentFactory {
     /**
      * Create Markdown Fragment
      */
-    fun createMarkdown(content: String): Fragment {
+    fun createMarkdown(content: String, file: File): Fragment {
         val title = findMarkdownTitle(content)
-        val key = Key(MD, replaceUnsafeCharacters(title))
+        val key = Key(file, MD, replaceUnsafeCharacters(title))
         return Fragment(key, title, content)
     }
 

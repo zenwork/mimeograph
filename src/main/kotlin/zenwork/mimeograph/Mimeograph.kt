@@ -9,19 +9,29 @@ import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.StaticHandler
 import zenwork.mimeograph.services.MarkdownFragmentService
 import zenwork.mimeograph.source.FileSystemMarkdownSource
+import zenwork.mimeograph.source.Watcher
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 
 /**
  * Server
  * */
 class Mimeograph : AbstractVerticle() {
 
+    private val executor: ExecutorService = Executors.newSingleThreadExecutor()
+
     override fun start() {
 
         val path = config().getString("path.md", "${System.getProperty("user.dir")}/webroot/md")
         val port = config().getInteger("http.port", 9090)
-
         val source = FileSystemMarkdownSource(path)
         val markdownService = MarkdownFragmentService(source)
+
+        executor.submit {
+            Watcher(path, markdownService.getActionUpdater(path))
+        }
+
         val router = buildRouter(vertx, markdownService)
 
         val options = HttpServerOptions()
@@ -31,6 +41,11 @@ class Mimeograph : AbstractVerticle() {
         vertx.createHttpServer(options)
                 .requestHandler(router::accept)
                 .listen(port)
+    }
+
+    override fun stop() {
+        super.stop()
+        executor.shutdown()
     }
 
     private fun buildRouter(vertx: Vertx, markdownService: MarkdownFragmentService): Router {

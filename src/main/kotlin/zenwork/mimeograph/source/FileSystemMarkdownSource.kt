@@ -1,13 +1,13 @@
 package zenwork.mimeograph.source
 
+import zenwork.mimeograph.fragment.ContentFactory
 import zenwork.mimeograph.fragment.Fragment
-import zenwork.mimeograph.fragment.FragmentFactory
 import java.io.File
 
 /**
  * File System sourcing implementation
  */
-class FileSystemMarkdownSource(val path:String) : MarkdownSource {
+class FileSystemMarkdownSource(val path: String) : MarkdownSource {
 
     override fun fetch(): Set<Fragment> {
         val fragList = mutableSetOf<Fragment>()
@@ -18,8 +18,7 @@ class FileSystemMarkdownSource(val path:String) : MarkdownSource {
                 if (file.isFile) {
                     println("found MD file: $file")
 
-                    val content: String = file.inputStream().bufferedReader().use { it.readText() }
-                    val fragment = FragmentFactory.createMarkdown(content)
+                    val fragment = ContentFactory.extractMarkdownContent(file)
                     fragList.add(fragment)
                 }
             }

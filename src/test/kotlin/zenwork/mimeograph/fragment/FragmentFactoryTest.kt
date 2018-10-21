@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.Arguments.of
 import org.junit.jupiter.params.provider.MethodSource
 import zenwork.mimeograph.fragment.Fragment.Type
 import zenwork.mimeograph.fragment.Fragment.Type.MD
+import java.io.File
 import java.util.stream.Stream
 
 /**
@@ -28,7 +29,7 @@ internal class FragmentFactoryTest {
     @ParameterizedTest
     @MethodSource("testContent")
     fun create(content: String, title: String, type: Type) {
-        val fragment = FragmentFactory.createMarkdown(content)
+        val fragment = FragmentFactory.createMarkdown(content, File(""))
 
         assertEquals(type, fragment.key.type)
         assertEquals(title, fragment.key.id)
