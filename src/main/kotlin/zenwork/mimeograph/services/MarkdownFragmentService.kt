@@ -28,7 +28,12 @@ class MarkdownFragmentService() {
     }
 
     fun getTitle(title: String): String? {
-        val fragment = store.get(Fragment.Key(MD, title))
+        val t: String
+        when {
+            title.endsWith(".md") -> t = title.substring(0, title.length - 3)
+            else                  -> t = title
+        }
+        val fragment = store.get(Fragment.Key(MD, t))
         return fragment?.content
     }
 

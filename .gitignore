@@ -93,4 +93,3 @@ fabric.properties
 src/main/resources/.vertx/
 /.coverage/
 
-/src/main/resources/webroot/api/*

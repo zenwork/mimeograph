@@ -3,43 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Test Home</title>
-    <script src="/api/webcomponents-bundle.js"></script>
-    <script src="/api/md-story.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/webcomponents-bundle.js"></script>
 </head>
 <body>
-    <h1>Test Page</h1>
-    <ol>
-        <li>
-            <button onclick="fire('test-markdown')">Test Markdown</button>
-        </li>
-        <li>
-            <button onclick="fire('sample-markdown-content')">Sample Markdown Content</button>
-        </li>
-        <li>
-            <button onclick="fire('tibi-petit-arcitenens-spectans-caeleste-ope-fluctus')">Tibi petit arcitenens spectans
-                                                                                          caeleste ope fluctus
-            </button>
-        </li>
-        <li>
-            <button onclick="fire('an-h1-header')">An h1 header</button>
-        </li>
-    </ol>
+    <h1>Test Blog</h1>
+    <style>
+        .row {
+            border: darkslategray dotted 1px;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+    <div class="container">
+        <h2>Example 1</h2>
+        <md-view class="row">
+            <md-story class="col-8"></md-story>
+            <md-list class="col-4"></md-list>
+            <md-store src="/md/titles" stories="/md/title/"></md-store>
+        </md-view>
 
+        <h2>Example 2</h2>
+        <md-view class="row">
+            <md-story class="col-12"></md-story>
+            <md-store src="/md/titles" stories="/md/title/" story="/md/title/the-story.md"></md-store>
+        </md-view>
 
-    <md-story class="main-story"></md-story>
+        <h2>Example 3</h2>
+        <div class="row">
+            <md-story class="col-12">
+# The Standalone Story
 
-    <script>
-		function fire(story) {
-			var request = new XMLHttpRequest();
-			request.open('GET', 'http://localhost:9090/md/title/' + story);
-			request.responseType = 'text';
+with some text
+            </md-story>
 
-			request.onload = function () {
-				document.getElementsByClassName('main-story')[0].innerHTML = request.response;
-			};
+        </div>
+    </div>
 
-			request.send();
-		}
-    </script>
+    <script src="/api/md-story.js"></script>
+    <script src="/api/md-list.js"></script>
+    <script src="/api/md-view.js"></script>
+
 </body>
 </html>
