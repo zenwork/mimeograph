@@ -18,7 +18,8 @@
     </style>
     <div class="container">
         <h2>Example 1</h2>
-        <md-view class="row">
+        <md-crumbs view="main"></md-crumbs>
+        <md-view id="main" class="row">
             <md-story class="col-8"></md-story>
             <md-list class="col-4"></md-list>
             <md-store src="/md/titles" stories="/md/title/"></md-store>
@@ -44,8 +45,9 @@ with some text
     <script src="/api/md-story.js"></script>
     <script src="/api/md-list.js"></script>
     <script src="/api/md-view.js"></script>
-    <script src="/api/vendors~md-list~md-parentchild~md-story~md-view.js"></script>
-    <script src="/api/vendors~md-story.js"></script>
+    <script src="/api/md-crumbs.js"></script>
+    <!--<script src="/api/vendors~md-list~md-parentchild~md-story~md-view.js"></script>-->
+    <!--<script src="/api/vendors~md-story.js"></script>-->
 
 </body>
 </html>
